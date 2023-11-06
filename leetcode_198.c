@@ -1,3 +1,6 @@
+// Solution uses Dynamic Programming Method
+// Solution 1
+/*
 int rob(int* nums, int numsSize){
     if (numsSize == 0) {
         return 0;
@@ -17,4 +20,24 @@ int rob(int* nums, int numsSize){
     }
 
     return (prevRobbed > prevNotRobbed) ? prevRobbed : prevNotRobbed;
+}
+*/
+
+// Solution 2: result = max(total[n-2] + nums[n], total[n-1]);
+int rob(int* nums, int numsSize){
+    if (numsSize == 0) {
+        return 0;
+    } else if (numsSize == 1) {
+        return nums[0];
+    }
+
+    int *result = (int*)malloc(numsSize * sizeof(int));
+    result[0] = nums[0];
+    result[1] = fmax(nums[0], nums[1]);
+
+    for(int i=2; i<numsSize; i++){
+        result[i] = fmax((result[i-2] + nums[i]), result[i-1]);
+    }
+
+    return result[numsSize-1];
 }
