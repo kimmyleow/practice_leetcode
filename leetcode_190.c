@@ -1,34 +1,20 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdint.h>
 
-int missingNumber(int* nums, int numsSize) {
-    int expectedSum = 0;
-    int missingSum = 0;
-    int missingNum = 0;
-    int i = 0;
-    
-    for(i=0; i<numsSize; i++)
-    {
-        missingSum += nums[i];
+uint32_t reverseBits(uint32_t n) {
+    uint32_t result = 0;
+    for (int i = 0; i < 32; i++) {
+        // Extract the least significant bit of n
+        uint32_t bit = (n >> i) & 1;
+        // Append the bit to the result after shifting the result to the left
+        result = (result << 1) | bit;
     }
-
-    //expectedSum = numsSize * (numsSize + 1) / 2;
-    for(i=0; i<numsSize+1; i++)
-    {
-        expectedSum = expectedSum + i;
-    }
-    
-    printf("missingsum = %d\n", missingSum);
-    printf("expectedSum = %d\n", expectedSum);
-    
-    missingNum = expectedSum - missingSum;
-    return missingNum;
+    return result;
 }
 
-int main()
-{
-    int nums[] = {3, 0, 1};
-    int numsSize = sizeof(nums) / sizeof(nums[0]);
-    int missing = missingNumber(nums, numsSize);
-    printf("The missing number is: %d\n", missing);
+int main() {
+    uint32_t num = 43261596; // Example input
+    uint32_t reversed = reverseBits(num);
+    printf("Reversed bits of %u is %u\n", num, reversed);
     return 0;
 }
